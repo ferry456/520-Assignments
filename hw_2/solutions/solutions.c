@@ -1,4 +1,5 @@
-#include "example.h"
+#include "solutions.h"
+#include <stdio.h>
 
 int rt = 0;
 int add_one(int x) { 
@@ -9,27 +10,38 @@ int Running_Total(int x){
     return rt = rt + x;
 }
 
-int Reverse_In_Place(int x[] , int y){
-    //int len = sizeof(x) / sizeof(x[0]);
-    int len = y;
-    if (x[0] == NULL){
-        return x[];
-    } else {
-    for (int cur = 0; cur < len/2; cur++){
+void Reverse_in_place(int x[] , int size){
+    for (int cur = 0; cur < size/2; cur++){
         int temp = x[cur];
-        x[cur] = x[len - 1 - cur];
-        x[len - 1 - cur] = temp;
-        }
-    return int x[];
+        x[cur] = x[size - 1 - cur];
+        x[size - 1 - cur] = temp;
     }
 }
 
-int Reverse(int x[] , int z){
+int *Reverse(int x[] , int size){
     int *y;
-    y = (int*)calloc(z , sizeof(x[]));
-    for (i = 0; i <= z ; i++){
-        y[i] = x[z - 1 - i];
+    y = (int*)calloc(size , sizeof(int));
+    for (int i = 0; i <= size; i++){
+        y[i] = x[size - 1 - i];
     }
-    return int *y;
+    return y;
 }
 
+int num_instance(int x[] , int size , int y){
+    int count = 0;
+    for(int i = 0; i <= size - 1; i++){
+        if (x[i] == y){
+            count++;
+        }
+    }
+    return count;    
+}
+
+Point * map(Point x[] , int size , Point (*func) (Point)){
+    Point *b;
+    b = (Point*)calloc(size , sizeof(Point));
+    for (int i = 0; i < size; i++){
+        b[i] = func(x[i]);
+    }
+    return b;
+}
