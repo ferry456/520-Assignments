@@ -68,12 +68,27 @@ namespace {
         rpn_free();
 
         rpn_init();
-        rpn_push(DBL_MAX);
-        rpn_push(DBL_MAX);
-        rpn_negate();
-        rpn_multiply();
-        ASSERT_EQ(rpn_error(), OVERFLOW_ERROR);
-        rpn_free();        
+        rpn_push(1.0);
+        rpn_push(3.0);
+        rpn_div();
+        ASSERT_EQ(rpn_pop(), 1.0/3.0);
+        rpn_free(); 
+
+        rpn_init();
+        rpn_push(0);
+        rpn_push(1);
+        rpn_div();
+        ASSERT_EQ(rpn_error(), DIVIDE_BY_ZERO_ERROR);
+        rpn_free();
+
+        rpn_init();
+        for (double i = 0.0; i < 180.0; i++){
+            rpn_push(i);
+        }
+        rpn_pop();
+        rpn_div();
+        ASSERT_EQ(rpn_pop(),177.0/178.0);
+        rpn_free();       
 
     }    
 

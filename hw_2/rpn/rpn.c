@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include<stdlib.h>
 
 #include "rpn.h"
 
@@ -30,9 +31,15 @@ void rpn_init() {
 void rpn_push(double x) {
     if ( !initialized ) {
         error = NOT_INITIALIZED_ERROR;
-    } else {
+    } else {    
+        if (top > 99){
+        stack = (double *) realloc(stack, 2 * INITIAL_STACK_SIZE * sizeof(double));
         stack[top] = x;
         top++;
+        }else {
+        stack[top] = x;
+        top++;
+        }
     }
 }
 
@@ -98,4 +105,21 @@ void rpn_free() {
         initialized = 0;
     }
     error = OK;
+}
+
+void rpn_div(){
+    if ( !initialized ) {
+        error = NOT_INITIALIZED_ERROR;
+    } else if ( top < 2 ) {
+        error = BINARY_ERROR;
+    } else if(stack[top - 1] * stack[top - 2] == 0){
+        error = DIVIDE_BY_ZERO_ERROR;
+    }else{    
+        double x = stack[top-2] / stack[top-1];
+        if ( x == INFINITY || x == -INFINITY ) {
+            error = OVERFLOW_ERROR;
+        } 
+        top--;
+        stack[top-1] = x;
+    }
 }
