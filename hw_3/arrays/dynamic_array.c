@@ -298,28 +298,24 @@ DynamicArray * DynamicArray_take ( DynamicArray * a, int b){
             for (int i = 0; i < b; i++){
             DynamicArray_push(ac, DynamicArray_pop_front(a));
         }
+        }
     }
     return ac; 
 }
-    
-    
-    
-    if (b < 0){
-        for (int i = 0; i < abs(b); i++){
-        DynamicArray_push(ac, DynamicArray_pop(a));
-        }
-    }else {
-        for (int i = 0; i < b; i++){
-        DynamicArray_push(ac, DynamicArray_pop_front(a));
-        }
-    }
-    return ac;
-}
 
 DynamicArray * DynamicArray_take2 ( DynamicArray * a, int b){
-    if (b < 0){
+    DynamicArray *ac = DynamicArray_new();
+    if (abs(b) > DynamicArray_size(a)){
+        ac = DynamicArray_copy(a);
+        for (int i = abs(b); i < abs(b); i++){
+                DynamicArray_push(ac, 0);
+        }
+    }else{
+        if (b < 0){
         return DynamicArray_subarray(a, DynamicArray_size(a)-b, DynamicArray_size(a));
     }else {
         return DynamicArray_subarray(a, 0, b);
+        }
     }
+    return ac;
 }
