@@ -133,6 +133,7 @@ namespace {
         ASSERT_EQ(DynamicArray_min(da),1.0);
         DynamicArray_destroy(da);
     }
+    
     TEST(DynamicArray,max) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -143,6 +144,7 @@ namespace {
         ASSERT_EQ(DynamicArray_max(da),5.0);
         DynamicArray_destroy(da);
     }
+    
     TEST(DynamicArray,mean) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -153,6 +155,7 @@ namespace {
         ASSERT_EQ(DynamicArray_mean(da),15.0);
         DynamicArray_destroy(da);
     }
+
     TEST(DynamicArray,median) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -163,6 +166,7 @@ namespace {
         ASSERT_EQ(DynamicArray_median(da),3.0);
         DynamicArray_destroy(da);
     }
+
     TEST(DynamicArray,sum) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -173,6 +177,7 @@ namespace {
         ASSERT_EQ(DynamicArray_sum(da),15.0);
         DynamicArray_destroy(da);
     }
+
     TEST(DynamicArray,last) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -183,6 +188,7 @@ namespace {
         ASSERT_EQ(DynamicArray_last(da),5.0);
         DynamicArray_destroy(da);
     }
+
     TEST(DynamicArray,first) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -193,6 +199,7 @@ namespace {
         ASSERT_EQ(DynamicArray_first(da),1.0);
         DynamicArray_destroy(da);
     }
+
     TEST(DynamicArray,copy) {
         DynamicArray * da = DynamicArray_new();
         double x = 1.0;
@@ -205,6 +212,7 @@ namespace {
         }
         DynamicArray_destroy(da);
     }
+
     TEST(DynamicArray, range) {
         DynamicArray * da = DynamicArray_new();
         double x = 0.0;
@@ -218,6 +226,7 @@ namespace {
         DynamicArray_destroy(da);
         DynamicArray_destroy(cc);
     }
+
     TEST(DynamicArray,concat) {
         DynamicArray * a = DynamicArray_new();
         DynamicArray * b = DynamicArray_new();
@@ -235,6 +244,7 @@ namespace {
         DynamicArray_destroy(b);
         DynamicArray_destroy(c);
     }
+    
     TEST(DynamicArray,take) {
         int m = 4;
         DynamicArray * a = DynamicArray_new();
