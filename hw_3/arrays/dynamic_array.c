@@ -269,7 +269,7 @@ DynamicArray * DynamicArray_copy ( const DynamicArray * da ){
 DynamicArray * DynamicArray_range ( double a, double b, double step){
     DynamicArray *aa = DynamicArray_new();
     for (int i = 0; i <= abs(b - a) / step; i++){
-        DynamicArray_push(aa, i * step);
+        DynamicArray_push(aa, a * step);
     }
     return aa;
 }
@@ -284,10 +284,16 @@ DynamicArray * DynamicArray_concat ( const DynamicArray * a, const DynamicArray 
 
 DynamicArray * DynamicArray_take ( DynamicArray * a, int b){
     DynamicArray *ac = DynamicArray_new();
+    ac = DynamicArray_copy(a);
     if (abs(b) > DynamicArray_size(a)){
-        ac = DynamicArray_copy(a);
-        for (int i = abs(b); i < abs(b); i++){
-                DynamicArray_push(ac, 0);
+        if (b > 0){
+            for (int i = 0; i < abs(b); i++){
+                DynamicArray_push_front(ac, 0);
+            }
+        }else{
+            for (int i = 0; i < b; i++){
+                DynamicArray_push(ac , 0);
+            }
         }
     }else {
         if (b < 0){
@@ -305,10 +311,16 @@ DynamicArray * DynamicArray_take ( DynamicArray * a, int b){
 
 DynamicArray * DynamicArray_take2 ( DynamicArray * a, int b){
     DynamicArray *ac = DynamicArray_new();
+    ac = DynamicArray_copy(a);
     if (abs(b) > DynamicArray_size(a)){
-        ac = DynamicArray_copy(a);
-        for (int i = abs(b); i < abs(b); i++){
-                DynamicArray_push(ac, 0);
+        if (b > 0){
+            for (int i = 0; i < abs(b); i++){
+                DynamicArray_push_front(ac, 0);
+            }
+        }else{
+            for (int i = 0; i < b; i++){
+                DynamicArray_push(ac , 0);
+            }
         }
     }else{
         if (b < 0){

@@ -275,7 +275,7 @@ namespace {
     }
 
     TEST(DynamicArray,take3) {
-        int m = -400;
+        int m = 400;
         DynamicArray * a = DynamicArray_new();
         DynamicArray * b = DynamicArray_new();
         DynamicArray * c = DynamicArray_new();
