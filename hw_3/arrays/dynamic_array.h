@@ -10,6 +10,8 @@ typedef struct {
     double * buffer;
 } DynamicArray;
 
+/*#define DynamicArray *num_count[];*/
+
 /* Constructors / Destructors ************************************************/
 
 DynamicArray * DynamicArray_new(void);
@@ -86,6 +88,10 @@ int DynamicArray_num_arrays();
  */
 int DynamicArray_destroy_all();
 
-DynamicArray * DynamicArray_subarray(DynamicArray *, int, int);
+DynamicArray * DynamicArray_subarray(DynamicArray *, int , int );
+
+DynamicArray * DynamicArray_take ( DynamicArray * a, int b);
+
+DynamicArray * DynamicArray_take2 ( DynamicArray * a, int b);
 
 #endif

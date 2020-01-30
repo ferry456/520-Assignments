@@ -106,8 +106,8 @@ namespace {
     }
 
     TEST(DynamicArray, Map) {
-        DynamicArray * t = DynamicArray_new(),
-                     * y;
+        DynamicArray * t = DynamicArray_new();
+        DynamicArray * y = DynamicArray_new();
         double s = 0.0;
         for ( int i=0; i<628; i++ ) {
             DynamicArray_set(t, i, s);
@@ -121,6 +121,194 @@ namespace {
         }
         DynamicArray_destroy(t);    
         DynamicArray_destroy(y);                    
-    }         
+    }
 
+    TEST(DynamicArray,min) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_min(da),1.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,max) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_max(da),5.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,mean) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_mean(da),15.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,median) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_median(da),3.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,sum) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_sum(da),15.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,last) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_last(da),5.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,first) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        ASSERT_EQ(DynamicArray_first(da),1.0);
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray,copy) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 1.0;
+        while ( x <= 5 ) {
+            DynamicArray_push(da, x);  
+            x += 1.0;
+        }
+        for (int i = 0; i < DynamicArray_size(da); i++){
+            ASSERT_EQ(DynamicArray_get(da, i), DynamicArray_get(DynamicArray_copy(da), i));
+        }
+        DynamicArray_destroy(da);
+    }
+    TEST(DynamicArray, range) {
+        DynamicArray * da = DynamicArray_new();
+        double x = 0.0;
+        for (x = 0.0; x <= 1.0; x = x + 0.1);{
+            DynamicArray_push(da, x);
+        }
+        DynamicArray *cc = DynamicArray_range(0.0, 1.0, 0.1);
+        for (int i = 0; i < DynamicArray_size(da); i++){
+            ASSERT_EQ(DynamicArray_get(da,i),DynamicArray_get(cc,i));
+        }
+        DynamicArray_destroy(da);
+        DynamicArray_destroy(cc);
+    }
+    TEST(DynamicArray,concat) {
+        DynamicArray * a = DynamicArray_new();
+        DynamicArray * b = DynamicArray_new();
+        DynamicArray * c = DynamicArray_new();
+        a = DynamicArray_range(0.0, 1.0, 0.1);
+        b = DynamicArray_range(1.0, 2.0, 0.1);
+        c = DynamicArray_concat(a, b);
+        for (int i = 0; i < DynamicArray_size(a); i++){
+            ASSERT_EQ(DynamicArray_get(c, i), DynamicArray_get(a, i));
+        }
+        for (int i = 0; i < DynamicArray_size(b); i++){
+            ASSERT_EQ(DynamicArray_get(c, i + DynamicArray_size(a)), DynamicArray_get(b, i));
+        }
+        DynamicArray_destroy(a);
+        DynamicArray_destroy(b);
+        DynamicArray_destroy(c);
+    }
+    TEST(DynamicArray,take) {
+        int m = 4;
+        DynamicArray * a = DynamicArray_new();
+        DynamicArray * b = DynamicArray_new();
+        DynamicArray * c = DynamicArray_new();
+        DynamicArray * d = DynamicArray_new();
+        a = DynamicArray_range(0.0, 1.0, 0.1);
+        b = DynamicArray_range(1.0, 2.0, 0.1);
+        c = DynamicArray_concat(a, b);
+        d = DynamicArray_take(c, m);
+        for (int i = 0; i < m; i++){
+            ASSERT_EQ(DynamicArray_get(c, i), DynamicArray_get(d, i));
+        }
+        
+        DynamicArray_destroy(a);
+        DynamicArray_destroy(b);
+        DynamicArray_destroy(c);
+        DynamicArray_destroy(d);
+    }
+    
+    TEST(DynamicArray,take2) {
+        int m = -4;
+        DynamicArray * a = DynamicArray_new();
+        DynamicArray * b = DynamicArray_new();
+        DynamicArray * c = DynamicArray_new();
+        DynamicArray * d = DynamicArray_new();
+        a = DynamicArray_range(0.0, 1.0, 0.1);
+        b = DynamicArray_range(1.0, 2.0, 0.1);
+        c = DynamicArray_concat(a, b);
+        d = DynamicArray_take2(c, m);
+        for (int i = 0; i < abs(m); i++){
+            ASSERT_EQ(DynamicArray_get(c, (DynamicArray_size(d) - i)), DynamicArray_get(d, m - i));
+        }
+        DynamicArray_destroy(a);
+        DynamicArray_destroy(b);
+        DynamicArray_destroy(c);
+        DynamicArray_destroy(d);
+    }
+
+    TEST(DynamicArray,take3) {
+        int m = -400;
+        DynamicArray * a = DynamicArray_new();
+        DynamicArray * b = DynamicArray_new();
+        DynamicArray * c = DynamicArray_new();
+        DynamicArray * d = DynamicArray_new();
+        a = DynamicArray_range(0.0, 1.0, 0.1);
+        b = DynamicArray_range(1.0, 2.0, 0.1);
+        c = DynamicArray_concat(a, b);
+        d = DynamicArray_take(c, m);
+        for (int i = 0; i < abs(m); i++){
+            ASSERT_EQ(DynamicArray_get(c, (DynamicArray_size(d) - i)), DynamicArray_get(d, m - i));
+        }
+        DynamicArray_destroy(a);
+        DynamicArray_destroy(b);
+        DynamicArray_destroy(c);
+        DynamicArray_destroy(d);
+    }
+
+    TEST(DynamicArray,take4) {
+        int m = -400;
+        DynamicArray * a = DynamicArray_new();
+        DynamicArray * b = DynamicArray_new();
+        DynamicArray * c = DynamicArray_new();
+        DynamicArray * d = DynamicArray_new();
+        a = DynamicArray_range(0.0, 1.0, 0.1);
+        b = DynamicArray_range(1.0, 2.0, 0.1);
+        c = DynamicArray_concat(a, b);
+        d = DynamicArray_take2(c, m);
+        for (int i = 0; i < abs(m); i++){
+            ASSERT_EQ(DynamicArray_get(c, (DynamicArray_size(d) - i)), DynamicArray_get(d, m - i));
+        }
+        DynamicArray_destroy(a);
+        DynamicArray_destroy(b);
+        DynamicArray_destroy(c);
+        DynamicArray_destroy(d);
+    }
 }
