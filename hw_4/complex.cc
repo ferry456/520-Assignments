@@ -27,9 +27,9 @@ Complex Complex::operator*(const Complex& b) {
     return m;
 }
 
-bool Complex::operator==(const Complex& a , const Complex& b){
+bool operator==(const Complex& a , const Complex& b){
     if (a.real() == b.real() && a.imaginary() == b.imaginary()){
-        return ture;
+        return true;
     }else{
         return false;
     }
@@ -43,7 +43,7 @@ double Complex::imaginary() const {
     return im;
 }
 
-Complex Complex::cojugate() const {
+Complex Complex::conjugate() const {
     Complex a = Complex(re, -im);
     return a;
 }

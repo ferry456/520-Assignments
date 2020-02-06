@@ -23,7 +23,7 @@ namespace {
         std::cout << x << "\n";
         EXPECT_DOUBLE_EQ(y.magnitude(), 0.0);
     }
-    */
+    
     TEST(TypedArray, Matrix) {
 
         TypedArray<TypedArray<double>> m;
@@ -43,7 +43,7 @@ namespace {
         }
 
     }
-    /*
+    
     TEST(TypedArray,CopyElementsInSet1) {
         TypedArray<Point> b;
         Point p(1,2,3);
@@ -51,7 +51,7 @@ namespace {
         p.x = 4;
         EXPECT_DOUBLE_EQ(b.get(0).x, 1);
     }
-    */
+    
     TEST(TypedArray,CopyElementsInSet2) {
         TypedArray<TypedArray<double>> m;
         TypedArray<double> x;
@@ -63,7 +63,7 @@ namespace {
                                                // to be x[0], which we changed 
                                                // to -1.
     }
-
+    */
     TEST(TypedArray, push_push_front){
         TypedArray<double> x;
         TypedArray<double> y;
@@ -165,8 +165,8 @@ namespace {
     }
 
     TEST(complex , complex_conjugate){
-        EXPECT_DOUBLE_EQ(Complex(1 , 1).Complex_conjugate().real() , 1);
-        EXPECT_DOUBLE_EQ(Complex(1 , 1).Complex_conjugate().imaginary() , -1);
+        EXPECT_DOUBLE_EQ(Complex(1 , 1).conjugate().real() , 1);
+        EXPECT_DOUBLE_EQ(Complex(1 , 1).conjugate().imaginary() , -1);
     }
 
 

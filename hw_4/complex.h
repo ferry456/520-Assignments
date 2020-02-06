@@ -11,7 +11,7 @@ class Complex {
     double magnitude() const;
     double real() const;
     double imaginary() const;
-    Complex Complex_conjugate() const;
+    Complex conjugate() const;
     
     Complex operator*(const Complex& b);
     Complex operator+(const Complex& b);
@@ -21,6 +21,6 @@ class Complex {
 }; 
 
 bool operator<(const Complex& a, const Complex& b);
-bool operator==(const Complex& a , const Complex);
+bool operator==(const Complex& a , const Complex& b);
 
 #endif
