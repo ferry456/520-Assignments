@@ -80,8 +80,9 @@ DB &DB::create_test_data(int n){
     std::uniform_real_distribution<double> distribution_m(0.01 , 1000.00);
     std::uniform_real_distribution<double> distribution_d(0.1 , 10000000.0);
     std::uniform_int_distribution<int> distribution_name_number(8,11);
-    auto name_get = [&timer]() -> char {
-        srand(time(&timer));
+    srand(time(&timer));
+
+    auto name_get = []() -> char {
         
         int s;                         
         s=rand()%2;                     
@@ -92,20 +93,20 @@ DB &DB::create_test_data(int n){
         }             
     };
 
-    /*auto randchar = []() -> char{
-        const char charset[] = "0123456789" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz";
-        const size_t max_index = (sizeof(charset) - 1);
-        return charset[rand()% max_index];
-    };*/
+    // auto randchar = []() -> char{
+    //     const char charset[] = "0123456789" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz";
+    //     const size_t max_index = (sizeof(charset) - 1);
+    //     return charset[rand()% max_index];
+    // };
 
     for (int i = 0; i < n; i++){
+        int k = distribution_name_number(generator);
         double a_mass = distribution_m(generator);
         double a_distance = distribution_d(generator);
-        int k = distribution_name_number(generator);
         string a_name(k, 0);
         generate_n(a_name.begin(), k, name_get);
         cout << a_name << "\n";
-        insert(a_name, distribution_m(generator), distribution_d(generator));
+        insert(a_name, a_mass, a_distance);
     }
     
     return *this;
