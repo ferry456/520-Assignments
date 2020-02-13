@@ -101,11 +101,11 @@ DB &DB::create_test_data(int n){
     for (int i = 0; i < n; i++){
         double a_mass = distribution_m(generator);
         double a_distance = distribution_d(generator);
-        string a_name;
         int k = distribution_name_number(generator);
+        string a_name(k, 0);
         generate_n(a_name.begin(), k, name_get);
         cout << a_name << "\n";
-        insert(a_name, a_mass, a_distance);
+        insert(a_name, distribution_m(generator), distribution_d(generator));
     }
     
     return *this;
