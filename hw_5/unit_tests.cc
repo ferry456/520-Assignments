@@ -5,6 +5,8 @@
 #include <numeric>      // std::accumulate
 #include "examples.h"
 //#include "examples.cc"
+#include "db.h"
+//#include "db.cc"
 
 namespace {
 
@@ -199,14 +201,105 @@ namespace {
     }
   }
 
-  TEST(examples_2, primes){
+  TEST(primes, primes){
     int x = 18;
     examples a;
     vector<int> y = a.primes(x);
-    for(int i : y){
+    for(auto i : y){
       std::cout << i << "\n";
     }
   }
 
+  TEST(twins, twins){
+    vector<int> x = {1,2,3,5,7,8,9,10,12,14,16,18,98};
+    examples a;
+    vector<tuple<int , int>> y = a.twins(x);
+    for(auto i : y){
+      int c = get<0>(i);
+      int d = get<1>(i);
+      std::cout << c << "\n";
+      std::cout << d << "\n";
+    }
+  }
+
+  
+  TEST(insert , insert){
+    DB db;
+    db.insert("earth", 1, 1)
+      .insert("mars", 0.11, 0.20)
+      .insert("caonima", 0.22, 0.32)
+      .insert("bf", 0.32, 0.63)
+      .insert("BF", 0.33, 0.63);
+      try{
+        db.insert("BF", 2, 6);
+      } catch (runtime_error e){
+        ASSERT_STREQ(e.what(), "Name already exists");
+      }
+  }
+  
+  TEST(Ran, Ran){
+    DB db;
+    db.create_test_data(50);
+    for(int i = 0; i < db.size(); i++){
+      DB::Row t = db.find(i);
+      cout << NAME(t) << " | ";
+    }
+  }
+  
+  TEST(find , find){
+    DB db;
+    db.insert("BATTLEFIELD", 1, 2);
+    try{
+      db.find_by_name("battlefield");
+    }
+    catch (runtime_error e){
+      ASSERT_STREQ(e.what(), "Couldnt find the row by name");
+    }
+  }
+  
+  TEST(AC , AC){
+    DB db;
+    db.insert("BATTLEFIELD", 1, 2);
+    db.insert("battlefield", 1, 2);
+    db.insert("ACTIVISION" , 1, 2);
+    db.insert("sucks" , 1, 2);
+    double acc = db.accumulate([](DB::Row r){return MASS(r);});
+    ASSERT_EQ(acc, 4);
+  }
+
+  TEST(M_A, M_A){
+    DB db;
+    db.insert("BATTLEFIELD", 1, 2);
+    db.insert("battlefield", 1, 2);
+    db.insert("ACTIVISION" , 1, 2);
+    db.insert("sucks" , 1, 2);
+    double acc = db.accumulate([](DB::Row r){return MASS(r);});
+    double ac = db.average_mass();
+    ASSERT_EQ(ac, 1);
+  }
+
+  TEST(D_A, D_A){
+    DB db;
+    db.insert("BATTLEFIELD", 1, 2);
+    db.insert("battlefield", 1, 2);
+    db.insert("ACTIVISION" , 1, 2);
+    db.insert("sucks" , 1, 2);
+    double acc = db.accumulate([](DB::Row r){return MASS(r);});
+    double ac = db.average_distance();
+    ASSERT_EQ(ac, 2);
+  }
+
+  TEST(size, size){
+    DB db;
+    db.insert("BATTLEFIELD", 1, 2);
+    db.insert("battlefield", 1, 2);
+    db.insert("ACTIVISION" , 1, 2);
+    db.insert("sucks" , 1, 2);
+    auto aq = db.size();
+    ASSERT_EQ(aq, 4);
+  }
+
+
 }
 
+ 

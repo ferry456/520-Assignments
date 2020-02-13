@@ -1,6 +1,7 @@
 #include <exception>
 #include "examples.h"
 //include "math.h"
+#include <iostream>
 
 using namespace std;
 using std::vector;
@@ -18,45 +19,36 @@ void examples::sort_by_magnitude(vector<double> &a){
 }
 
 vector<int> examples::primes(int n){
-    vector<int> t;
     vector<int> result;
     if(n < 2){
         throw std::range_error("dont have such primes");
     }else{
-        for (int i = 0; i < n + 1; i++){
-            t.push_back(i);
-        }
-        for (int j = 2; j < t.size(); j++){
-            while (j <= t.size() / 2){
-                t[2 * j] = 0;
+        result.push_back(2);
+        for (int i = 3; i <= n; i = i + 2) {
+            bool isPrime = true;
+            for (auto &p : result) {
+                if (i % p == 0) {
+                    isPrime = false;
+                    break;
+                } 
             }
-        }
-        for (int x = 2; x < t.size(); x++){
-            if (t[x] != 0){
-                result.push_back(t[x]);
+            if (isPrime) {
+                result.push_back(i);
             }
         }
     return result;
     }
 }
-/*
-vector<tuple<int,int>> examples::twins(vector<int> nums){
-    tuple<int, int> result;
-    sort(nums.begin(), nums.end());
-    vector<int> y = nums;
-    vector<int> ready;
-    vector<tuple<int, int>> fin;
-    if (nums.size() < 2){
-        throw std::range_error("cant find twins");
-    }else{
-        ready = primes(y.back());
-        for (int i : ready){
-            if (find(nums.begin(), nums.end(), i) && find(nums.begin(), nums.end(), i + 2) && find(ready.begin(), ready.end(), i + 2)){
-                result = make_tuple(i, i+2);
-                fin.push_back(result);
-            }
-        }
-    return fin;
-    }
 
-}*/
+vector<tuple<int , int>> examples::twins(vector<int> nums){
+    tuple<int, int> result;
+    vector<int> x = nums;
+    vector<tuple<int , int>> fin;
+    for (int i = 0; i < nums.size(); i++){
+        if (abs(x[i] - x[i + 1]) == 2){
+            result = make_tuple(x[i] , x[i + 1]);
+            fin.push_back(result);
+        }
+    }
+    return fin;
+}
