@@ -1,0 +1,20 @@
+{
+    "name": "Block",
+    "type": "dynamic",
+    "description": "Replace this string with a description",
+    "shape": [
+        { "x": -200, "y": 10 },
+        { "x": 200, "y": 10 },
+        { "x": 200, "y": -10 },
+        { "x": -200, "y": -10 }
+    ],
+    "friction": {
+      "collision": 1000,
+      "linear": 100000,
+      "rotational": 100000
+    },
+    "sensors": [],
+    "mass": 1000000,    
+    "controller": "lib/block.so"
+}
+
